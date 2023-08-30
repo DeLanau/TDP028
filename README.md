@@ -57,7 +57,7 @@ Play Store samt möjligheten att plantera riktiga träd genom att hålla fokus.
 
 - Ux-bilder
   
- - [[./docs/1.png]]
- - [[./docs/2.png]]
- - [[./docs/3.png]]
- - [[./docs/4.png]]
+ - ![alt text](/docs/1.png)
+ - ![alt text](/docs/2.png)
+ - ![alt text](/docs/3.png)
+ - ![alt text](/docs/4.png)

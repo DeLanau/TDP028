@@ -1,10 +1,10 @@
-* TDP028
+# TDP028 #
 
-* Navigering
+## Navigering ## 
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
 
-* Appbeskrivning
+## Appbeskrivning ##
 
 Kärnpoängen med "Focus & Fun" är att förbättra fokus under studierna,
 arbetet eller programmeringssessioner. Men också att ha lite kul efter
@@ -32,7 +32,7 @@ Appen kommer inte att ha ett bestraffningssystem samt en kontroll om
 användaren har utfört en aktivitet eller inte. Det är bara roligt,
 hälsosamt och effektivt.
 
-* Konkurrensanalys
+## Konkurrensanalys ##
 
 I denna konkurrentanalys kommer appen "Forest: Focus for Productiv-
 ity" att analyseras. Appen finns på App store och Google Play Store. App
@@ -56,7 +56,8 @@ Play Store samt möjligheten att plantera riktiga träd genom att hålla fokus.
   - En användare ska kunna se egen utmåning och aktivitets statistik.
 
 - Ux-bilder
-  [[./docs/1.png]]
-  [[./docs/2.png]]
-  [[./docs/3.png]]
-  [[./docs/4.png]]
+  
+ - [[./docs/1.png]]
+ - [[./docs/2.png]]
+ - [[./docs/3.png]]
+ - [[./docs/4.png]]

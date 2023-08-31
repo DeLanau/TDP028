@@ -55,6 +55,10 @@ Play Store samt möjligheten att plantera riktiga träd genom att hålla fokus.
   - En användare ska kunna tacka nej till utmåning eller aktivitet.
   - En användare ska kunna se egen utmåning och aktivitets statistik.
 
+- Wireframe
+  
+  ![alt text](/docs/wireframe.png)
+  
 - Ux-bilder
   
  - ![alt text](/docs/1.png)

@@ -1,0 +1,7 @@
+.gradle/
+.idea/
+build.gradle.kts
+gradle.properties
+gradle/
+local.properties
+settings.gradle.kts

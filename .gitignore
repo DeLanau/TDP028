@@ -1,6 +1,6 @@
 .gradle/
 .idea/
-build.gradle.kts
+build.gradle
 gradle.properties
 gradle/
 local.properties

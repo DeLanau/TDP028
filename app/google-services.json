@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1042174379690",
+    "project_id": "tdp028-project-b2f29",
+    "storage_bucket": "tdp028-project-b2f29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042174379690:android:8f5a737d7e3316f1c9f2d3",
+        "android_client_info": {
+          "package_name": "com.nadla777"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDejX_gE-5PNQxzehhEvls91LKN1T-RRGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

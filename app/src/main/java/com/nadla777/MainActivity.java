@@ -54,21 +54,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("createUser", mail.getText().toString() + " " + password.getText().toString());
                 startNewActivity();
-                //comment createUser, massa problem med testing/emulering av firestore db osv. Just nu skapas 1 account och lagras lokalt.
-                //createUser(mail.getText().toString(), password.getText().toString());
+
+                createUser(mail.getText().toString(), password.getText().toString());
             }
         });
 
         //login.setOnClickListener(view -> startNewActivity());
-
-        /*login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str_mail = mail.getText().toString();
-                String str_password = password.getText().toString();
-                check_user(str_mail, str_password);
-            }
-        });*/
     }
     private void createUser(String mail, String password) {
         firestore.collection("users")
@@ -108,51 +99,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    /*private void check_user(String mail, String password) {
-        auth.fetchSignInMethodsForEmail(mail).addOnCompleteListener(this, new OnCompleteListener<SignInMethodQueryResult>() {
-            @Override
-            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                if (task.isSuccessful()) {
-                    boolean check_new_user = task.getResult().getSignInMethods().isEmpty();
-                    if (check_new_user) {
-                        createUser(mail, password);
-                    } else {
-                        loginUser(mail, password);
-                    }
-                    startNewActivity();
-                }else {
-                    Log.e("Sign_Login_in_main_activity", "Error while checking user existence", task.getException());
-                }
-            }
-        });
-    }
-
-    private void createUser(String mail, String password) {
-        auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d("Sign_Login_in_main_activity", "New user successful created!");
-                } else {
-                    Log.e("Sign_Login_in_main_activity", "Error while creating new user", task.getException());
-                }
-            }
-        });
-    }
-
-    private void loginUser(String mail, String password) {
-        auth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d("Sign_Login_in_main_activity", "Old user successful sign in!");
-                } else {
-                    Log.e("Sign_Login_in_main_activity", "Error while sign in old user", task.getException());
-                }
-            }
-        });
-    }*/
 
     //Log in Activity
     private void startNewActivity() {

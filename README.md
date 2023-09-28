@@ -3,6 +3,32 @@
 ## Navigering ## 
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
+## Inefo ##
+
+Betygsambition: betyg 3.
+
+Krav är inte slutliga och kan/kommer utåkas.
+
+Tekniska krav:
+
+- Hantering av stora och små skärmar med olika layouter.
+- Bra avvägning mellan användning av Acitivy och Fragments.
+
+Enterprenöriella krav:
+
+- Darkmode UX inställning
+- Multispråk-stöd
+
+## Veckoplanering  ##
+
+- v40 : skapa multispråk hantering.
+- v41 : byta från activity till fragments. 
+- v42 : skapa settings fragment eller button för språk byte och darkmode.
+- v43 : skapa fragment focus (tid hantering, timer).
+- v44 : poäng systemet under focus läge.
+- v45 : aktiviteter respektivare utmåningar. 
+- v46 : fix & tweeks, lokalt app statistik.
+- v47 : Milstople-5
 
 ## Appbeskrivning ##
 

@@ -12,7 +12,20 @@
           "package_name": "com.nadla777"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1042174379690-ij9msnqrsurl33pa0othsn0m78e62vv5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nadla777",
+            "certificate_hash": "7cdd71085ba19b1b3b1917fac35664eb1a12a39c"
+          }
+        },
+        {
+          "client_id": "1042174379690-4v6bg3bdsu2kjfq0dn88r7rqomb5c8ng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDejX_gE-5PNQxzehhEvls91LKN1T-RRGo"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042174379690-4v6bg3bdsu2kjfq0dn88r7rqomb5c8ng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

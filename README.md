@@ -3,7 +3,7 @@
 ## Navigering ## 
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
-## Inefo ##
+## Info ##
 
 Betygsambition: betyg 3.
 
@@ -23,12 +23,17 @@ Enterprenöriella krav:
 
 - v40 : skapa multispråk hantering.
 - v41 : byta från activity till fragments. 
-- v42 : skapa settings fragment eller button för språk byte och darkmode.
-- v43 : skapa fragment focus (tid hantering, timer).
-- v44 : poäng systemet under focus läge.
-- v45 : aktiviteter respektivare utmåningar. 
-- v46 : fix & tweeks, lokalt app statistik.
-- v47 : Milstople-5
+- v42 : skapa settings fragment eller button för språk byte.
+- v43 : utåka setting fragment eller skapa button för darkmode.
+- v44 : skapa fragment focus visual delen.
+- v45 : utåka fragment focus med åkning/minskning av tid.
+- v46 : skapa buttons för start/stop focus läge. 
+- v47 : Milstolpe-5.
+- v48 : skapa poäng systemet för focus läge.
+- v49 : skapa systemet för aktiviteter.
+- v50 : skapa lokalt användare statistik.
+- v51-1 : extra tid för att komplettera/ändra små saker.
+- v2 : inlämning av projekt.
 
 ## Appbeskrivning ##
 

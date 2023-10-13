@@ -3,6 +3,7 @@ package com.nadla777;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -27,11 +28,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.nadla777.fragments.main_fragment;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -62,94 +72,46 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("createUser", mail.getText().toString() + " " + password.getText().toString());
-                //startNewActivity();
-                loginUser();
-                //createUser(mail.getText().toString(), password.getText().toString());
+
+                try {
+                    create_local_user(mail.getText().toString());
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+             /*   main_fragment  fragment = new main_fragment();
+                FragmentManager manager = getSupportFragmentManager();
+
+                manager.beginTransaction().add(R.id.fragment_container, fragment, "test")
+                        .addToBackStack(null)
+                        .commit();*/
+
             }
         });
 
         //login.setOnClickListener(view -> startNewActivity());
     }
-    private void createUser(String mail, String password) {
-        firestore.collection("users")
-                .document(mail) // Use the email as the document ID
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                // User with the same email already exists
-                                Log.d("createUser", "User with this email already exists.");
-                            } else {
-                                // User with the same email does not exist, create a new user
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("email", mail);
-                                user.put("password", password);
 
-                                firestore.collection("users")
-                                        .document(mail) // Use the email as the document ID
-                                        .set(user) // Set data in the document
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Log.d("createUser", "User successfully added to Firestore!");
-                                                } else {
-                                                    Log.e("createUser", "Error adding user to Firestore", task.getException());
-                                                }
-                                            }
-                                        });
-                            }
-                        } else {
-                            Log.e("createUser", "Error checking for existing user", task.getException());
-                        }
-                    }
-                });
+    private void create_local_user(String username) throws JSONException, IOException {
+        Log.d("TEST", "IN creaste local user");
+        JSONObject obj = new JSONObject();
+        obj.put("Username", username);
+
+        String obj_s = obj.toString();
+
+        File f = new File(this.getFilesDir(), "local_user");
+        FileWriter fileWriter = new FileWriter(f);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        bufferedWriter.write(obj_s);
+        bufferedWriter.close();
+        Log.d("TEST", "done with writing, saved at " + this.getFilesDir().toString());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+   private void check_user_exists() {
 
-        if (requestCode == RC_SIGN_IN) {
-            if (resultCode != RESULT_OK) {
-                signInFailed();
-            }
-        }
-    }
-
-    private void signInFailed()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Could not login user");
-        builder.setCancelable(false);
-
-        builder.setPositiveButton(
-                "Exit app",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-
-        AlertDialog alert11 = builder.create();
-        alert11.show();
-    }
-
-    private void loginUser() {
-        List<AuthUI.IdpConfig> providers = Collections.singletonList(
-                new AuthUI.IdpConfig.GoogleBuilder().build());
-
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN);
-    }
-
+   }
 
     //Log in Activity
     private void startNewActivity() {

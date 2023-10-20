@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,8 +41,12 @@ import com.nadla777.fragments.main_fragment;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -51,37 +56,39 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DocumentReference firestore = FirebaseFirestore.getInstance().document("data/info");;
-    private EditText mail, password;
+    private EditText username;
+
 
     private static final int RC_SIGN_IN = 77;
+    private static boolean first_time = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
-        auth = FirebaseAuth.getInstance();
-
-        mail = findViewById(R.id.emailField);
-        password = findViewById(R.id.passwordField);
+        username = findViewById(R.id.username);
 
         ImageButton login = findViewById(R.id.letsgo);
+        UserManager u_manager = new UserManager(getBaseContext());
+
+
+        if (u_manager.get_user_data() == null) {
+            username.setVisibility(View.VISIBLE);
+            login.setVisibility(View.VISIBLE);
+        }else{
+            username.setVisibility(View.GONE);
+            login.setVisibility(View.GONE);
+        }
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("createUser", mail.getText().toString() + " " + password.getText().toString());
+                u_manager.create_new_user(username.getText().toString());
 
-                try {
-                    create_local_user(mail.getText().toString());
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                //u_manager.clear();
 
-             /*   main_fragment  fragment = new main_fragment();
+                /*   main_fragment  fragment = new main_fragment();
                 FragmentManager manager = getSupportFragmentManager();
 
                 manager.beginTransaction().add(R.id.fragment_container, fragment, "test")
@@ -94,30 +101,10 @@ public class MainActivity extends AppCompatActivity {
         //login.setOnClickListener(view -> startNewActivity());
     }
 
-    private void create_local_user(String username) throws JSONException, IOException {
-        Log.d("TEST", "IN creaste local user");
-        JSONObject obj = new JSONObject();
-        obj.put("Username", username);
-
-        String obj_s = obj.toString();
-
-        File f = new File(this.getFilesDir(), "local_user");
-        FileWriter fileWriter = new FileWriter(f);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(obj_s);
-        bufferedWriter.close();
-        Log.d("TEST", "done with writing, saved at " + this.getFilesDir().toString());
-    }
-
-   private void check_user_exists() {
-
-   }
-
-    //Log in Activity
-    private void startNewActivity() {
+/*    private void startNewActivity() {
         Intent in = new Intent(this, LoggedinActivity.class);
         in.putExtra("mail", mail.getText().toString());
         in.putExtra("password", password.getText().toString());
         startActivity(in);
-    }
+    }*/
 }

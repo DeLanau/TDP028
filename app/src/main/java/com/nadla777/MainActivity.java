@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                 name.setText(username);
                 name.setVisibility(View.VISIBLE);
+                Log.d("DEBUG_MAIN_ACTIVITY", "show username after welcome animation");
             }
         }, 5000);
 

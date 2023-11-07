@@ -7,9 +7,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
 
 import com.nadla777.R;
@@ -25,12 +26,36 @@ public class focus_fragment extends Fragment {
     private CountDownTimer countDownTimer;
 
     private float prevY;
+    private boolean scrolling = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.focus_fragment, container, false);
         timerTextView = rootView.findViewById(R.id.focus_timer);
-        Log.d("DEBUG", "SETUP FRAGMENT");
+
+        ImageButton focus_up = rootView.findViewById(R.id.focus_up);
+        ImageButton focus_down = rootView.findViewById(R.id.focus_down);
+        Button focus_start = rootView.findViewById(R.id.start_focus);
+
+        View.OnClickListener buttonHandler = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = view.getId();
+                scrolling = false;
+                Log.d("DEBUG BUTTONS", "Touch event");
+                if (id == R.id.focus_up) {
+                    Log.d("DEBUG BUTTONS", "Focus up pressed");
+                } else if (id == R.id.focus_down) {
+                    Log.d("DEBUG BUTTONS", "Focus down pressed");
+                } else {
+                    Log.d("DEBUG BUTTONS", "No button pressed");
+                }
+            }
+        };
+
+        focus_up.setOnClickListener(buttonHandler);
+        focus_down.setOnClickListener(buttonHandler);
+
         setupTimer();
         setupScrollBehavior(rootView);
         return rootView;
@@ -41,7 +66,6 @@ public class focus_fragment extends Fragment {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerMilliseconds = millisUntilFinished;
-                //dateTimerText();
             }
 
             @Override
@@ -57,10 +81,12 @@ public class focus_fragment extends Fragment {
         scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    // Use a constant value for both scrolling up and down
-                    int scrollDelta = 100;
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    scrolling = true;
+                }
 
+                if (event.getAction() == MotionEvent.ACTION_MOVE && scrolling) {
+                    int scrollDelta = 100;
                     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                     String timer_txt = timerTextView.getText().toString();
                     Date time;
@@ -70,6 +96,7 @@ public class focus_fragment extends Fragment {
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
+
                     if (event.getY() > prevY) {
                         // Scrolling down
                         timerMilliseconds -= scrollDelta;
@@ -78,11 +105,7 @@ public class focus_fragment extends Fragment {
                     } else {
                         // Scrolling up
                         timerMilliseconds += scrollDelta;
-                       /* long newTime = time.getTime() - 1000;
-                        if (newTime >= 0) {
-                            time.setTime(newTime);
-                        }*/
-                        time.setTime(time.getTime()+1000);
+                        time.setTime(time.getTime() + 1000);
                         Log.d("DEBUG", "SCROLL UP");
                     }
                     timerTextView.setText(sdf.format(time));
@@ -95,53 +118,5 @@ public class focus_fragment extends Fragment {
                 return true;
             }
         });
-    }
-
-    public static String millisecondsToTimeString(long milliseconds) {
-        // Calculate seconds, minutes, and hours
-        long totalSeconds = milliseconds / 1000;
-        long hours = totalSeconds / 3600;
-        long minutes = (totalSeconds % 3600) / 60;
-        long seconds = totalSeconds % 60;
-
-        // Format the time as "HH:MM:SS"
-        String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        return timeString;
-    }
-
-    private void updateTimerText() {/*    int scrollDelta = (int) event.getY() - prevY;
-                    timerMilliseconds += scrollDelta * 100;*/
-        String time = timerTextView.getText().toString();
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            Date t = sdf.parse(time);/*    int scrollDelta = (int) event.getY() - prevY;
-                    timerMilliseconds += scrollDelta * 100;*/
-            t.setTime(t.getTime() + 1000);
-            timerTextView.setText(sdf.format(t));
-            //Log.d("DEBUG", sdf.format(t));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        /*        timerTextView.setText("00:00:01");*/
-    }
-
-    private void update_time(boolean up) {
-        String time = timerTextView.getText().toString();
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            Date t = sdf.parse(time);
-            if (up) {
-                t.setTime(t.getTime() + 1000);
-            } else {
-                long newTime = t.getTime() - 1000;
-                if (newTime >= 0) {
-                    t.setTime(newTime);
-                }
-                Log.d("DEBUG", String.valueOf(t.getTime()));
-            }
-            timerTextView.setText(sdf.format(t));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

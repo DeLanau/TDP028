@@ -1,31 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="350dp"
-    android:layout_marginTop="100dp"
+    android:layout_height="300dp"
+    android:layout_marginTop="350dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:background="@android:color/transparent">
 
-
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/focus_timer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="00:00:00"
-        android:textSize="48sp"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="150dp"
-        android:fontFamily="sans-serif-medium"
-        android:layout_gravity="center" />
+        <TextView
+            android:id="@+id/focus_timer"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="00:00:00"
+            android:textSize="68sp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:layout_gravity="center" />
     </ScrollView>
 
+    <Button
+        android:id="@+id/start_focus"
+        android:layout_width="130dp"
+        android:layout_height="55dp"
+        android:layout_marginRight="65dp"
+        android:text="@string/start_focus"
+        android:textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@id/scroll"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <Button
+        android:id="@+id/stop_focus"
+        android:layout_width="130dp"
+        android:layout_height="55dp"
+        android:text="@string/stop_focus"
+        android:textSize="22sp"
+        android:layout_marginLeft="65dp"
+        app:layout_constraintTop_toBottomOf="@id/scroll"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/focus_up"
+        android:layout_width="55dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        android:src="@android:drawable/arrow_up_float"
+        app:layout_constraintTop_toTopOf="@id/scroll"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/focus_down"
+        android:layout_width="55dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginRight="5dp"
+        android:src="@android:drawable/arrow_down_float"
+        app:layout_constraintTop_toBottomOf="@id/focus_up"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

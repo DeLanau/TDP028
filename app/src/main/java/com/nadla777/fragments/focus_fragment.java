@@ -1,5 +1,6 @@
 package com.nadla777.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.nadla777.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class focus_fragment extends Fragment {
 
@@ -36,87 +38,125 @@ public class focus_fragment extends Fragment {
         ImageButton focus_up = rootView.findViewById(R.id.focus_up);
         ImageButton focus_down = rootView.findViewById(R.id.focus_down);
         Button focus_start = rootView.findViewById(R.id.start_focus);
+        Button focus_stop = rootView.findViewById(R.id.stop_focus);
+        Button focus_pause = rootView.findViewById(R.id.pause_focus);
+        Button focus_resume = rootView.findViewById(R.id.resume_focus);
 
-        View.OnClickListener buttonHandler = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int id = view.getId();
-                scrolling = false;
-                Log.d("DEBUG BUTTONS", "Touch event");
-                if (id == R.id.focus_up) {
-                    Log.d("DEBUG BUTTONS", "Focus up pressed");
-                } else if (id == R.id.focus_down) {
-                    Log.d("DEBUG BUTTONS", "Focus down pressed");
-                } else {
-                    Log.d("DEBUG BUTTONS", "No button pressed");
-                }
+        View.OnClickListener buttonHandler = view -> {
+            int id = view.getId();
+            scrolling = false;
+            Log.d("before button starrt", String.valueOf(get_time()));
+            if (id == R.id.focus_up) {
+                set_time(900000);
+            } else if (id == R.id.focus_down) {
+                set_time(-900000);
+            } else if (id == R.id.start_focus && get_time() != 0){
+                focus_start.setVisibility(View.GONE);
+                focus_pause.setVisibility(View.VISIBLE);
+                focus_stop.setVisibility(View.VISIBLE);
+                startTimer(get_time());
+                Log.d("BUTTON", "start focus with time" + get_time());
+            } else if (id == R.id.stop_focus) {
+                focus_start.setVisibility(View.VISIBLE);
+                focus_pause.setVisibility(View.GONE);
+                focus_stop.setVisibility(View.GONE);
+                focus_resume.setVisibility(View.GONE);
+                countDownTimer.cancel();
+                timerTextView.setText("00:00:00");
+                Log.d("BUTTON", "stop focus time");
+            }else if (id == R.id.pause_focus){
+                countDownTimer.cancel();
+                focus_pause.setVisibility(View.GONE);
+                focus_resume.setVisibility(View.VISIBLE);
+                Log.d("BUTTON", "pause focus");
+            } else if (id == R.id.resume_focus && countDownTimer != null) {
+                startTimer(get_time());
+                focus_pause.setVisibility(View.VISIBLE);
+                focus_resume.setVisibility(View.GONE);
+                Log.d("BUTTON", "resume focus with time" + get_time());
             }
         };
 
         focus_up.setOnClickListener(buttonHandler);
         focus_down.setOnClickListener(buttonHandler);
+        focus_start.setOnClickListener(buttonHandler);
+        focus_stop.setOnClickListener(buttonHandler);
+        focus_pause.setOnClickListener(buttonHandler);
+        focus_resume.setOnClickListener(buttonHandler);
 
-        setupTimer();
         setupScrollBehavior(rootView);
         return rootView;
     }
 
-    private void setupTimer() {
-        countDownTimer = new CountDownTimer(timerMilliseconds, 1000) {
+    private void startTimer(long init_time) {
+        countDownTimer = new CountDownTimer(init_time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timerMilliseconds = millisUntilFinished;
+                Log.d("TIMER", "tick event with time " + millisUntilFinished);
+                set_time(-1000);
             }
 
             @Override
             public void onFinish() {
-                // Timer finished
+                Log.d("TIMER", "FINISHED!");
             }
         };
         countDownTimer.start();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupScrollBehavior(View rootView) {
         ScrollView scrollView = rootView.findViewById(R.id.scroll);
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    scrolling = true;
-                }
-
-                if (event.getAction() == MotionEvent.ACTION_MOVE && scrolling) {
-                    int scrollDelta = 100;
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                    String timer_txt = timerTextView.getText().toString();
-                    Date time;
-
-                    try {
-                        time = sdf.parse(timer_txt);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    if (event.getY() > prevY) {
-                        // Scrolling down
-                        timerMilliseconds -= scrollDelta;
-                        time.setTime(time.getTime() - 1000);
-                        Log.d("DEBUG", "SCROLL DOWN");
-                    } else {
-                        // Scrolling up
-                        timerMilliseconds += scrollDelta;
-                        time.setTime(time.getTime() + 1000);
-                        Log.d("DEBUG", "SCROLL UP");
-                    }
-                    timerTextView.setText(sdf.format(time));
-                    prevY = event.getY();
-
-                    // Restart the countdown timer to reflect the new time
-                    countDownTimer.cancel();
-                    setupTimer();
-                }
-                return true;
+        scrollView.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                scrolling = true;
             }
+
+            if (event.getAction() == MotionEvent.ACTION_MOVE && scrolling) {
+                int scrollDelta = 100;
+                int new_time = 0;
+                if (event.getY() > prevY) {
+                    // Scrolling down
+                    new_time = -1000;
+                    Log.d("DEBUG", "SCROLL DOWN");
+                } else {
+                    // Scrolling up
+                    new_time = 1000;
+                    Log.d("DEBUG", "SCROLL UP");
+                }
+                set_time(new_time);
+                prevY = event.getY();
+            }
+            return true;
         });
     }
+
+    private void set_time(int n) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String timer_txt = timerTextView.getText().toString();
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date time;
+
+        try {
+            time = sdf.parse(timer_txt);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        time.setTime(time.getTime() + n);
+        timerTextView.setText(sdf.format(time));
+    }
+
+    private long get_time() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String timer_txt = timerTextView.getText().toString();
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date time;
+        try {
+            time = sdf.parse(timer_txt);
+            return time.getTime();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

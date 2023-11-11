@@ -8,6 +8,8 @@
     <string name="focus">Focus</string>
     <string name="start_focus">Start</string>
     <string name="stop_focus">Stop</string>
+    <string name="pause_focus">Pause</string>7
+    <string name="resume_focus">Resume</string>
 
 
 </resources>

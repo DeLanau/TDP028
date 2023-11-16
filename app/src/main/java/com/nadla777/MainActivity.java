@@ -3,11 +3,14 @@ package com.nadla777;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -41,12 +44,15 @@ public class MainActivity extends AppCompatActivity {
         ImageButton login = findViewById(R.id.letsgo);
         UserManager u_manager = new UserManager(getBaseContext());
 
+        //u_manager.clear();
+
         if (u_manager.get_user_data() == null) {
             username.setVisibility(View.VISIBLE);
             login.setVisibility(View.VISIBLE);
         }else{
             username.setVisibility(View.GONE);
             login.setVisibility(View.GONE);
+
             try {
                 show_welcome(u_manager.get_user_data().getString("username"));
             } catch (JSONException e) {
@@ -54,14 +60,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         Log.d("DEBUG", "START");
-        focus_fragment fragment = new focus_fragment();
-        FragmentManager manager = getSupportFragmentManager();
-
-        manager.beginTransaction().add(R.id.fragment_container, fragment, "test")
-                .addToBackStack(null)
-                .commit();
 
         login.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
                 u_manager.create_new_user(username.getText().toString());
@@ -70,17 +71,16 @@ public class MainActivity extends AppCompatActivity {
                     show_welcome(u_manager.get_user_data().getString("username"));
                     username.setVisibility(View.GONE);
                     login.setVisibility(View.GONE);
+
+                    InputMethodManager input_manager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    input_manager.hideSoftInputFromWindow(requireViewById(R.id.fragment_container).getWindowToken(), 0);
+
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-
                 /*  u_manager.clear();*/
-
-
-
             }
         });
-
         //login.setOnClickListener(view -> startNewActivity());
     }
 
@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
         String welcome_msg = getString(R.string.welcome, username);
         welcome_text.setText(welcome_msg);
         welcome_text.setVisibility(View.VISIBLE);
+        focus_fragment fragment = new focus_fragment();
+        FragmentManager manager = getSupportFragmentManager();
+
+        manager.beginTransaction().add(R.id.fragment_container, fragment, "test")
+                .addToBackStack(null)
+                .commit();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -98,13 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("DEBUG_MAIN_ACTIVITY", "show username after welcome animation");
             }
         }, 5000);
-
     }
 
-/*    private void startNewActivity() {
-        Intent in = new Intent(this, LoggedinActivity.class);
-        in.putExtra("mail", mail.getText().toString());
-        in.putExtra("password", password.getText().toString());
-        startActivity(in);
-    }*/
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
 }

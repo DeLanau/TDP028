@@ -3,7 +3,7 @@
 ## Navigering ## 
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
-- [App demo](/docs/tdp028_app_demo.mp4)
+- ![App demo](/docs/tdp028_app_demo.mp4)
 ## Info ##
 
 Betygsambition: betyg 3.

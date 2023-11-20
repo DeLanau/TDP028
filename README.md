@@ -3,14 +3,14 @@
 ## Navigering ## 
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
-## Info ##
-
-![App demo](/docs/tdp028_app_demo.mp4)
+- ![App demo](/docs/tdp028_app_demo.mp4)
 
 <video width="320" height="240" controls>
-  <source src="docs/tdp028_app_demo.mp4" type="video/mp4">
+  <source src="/docs/tdp028_app_demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+## Info ##
 
 Betygsambition: betyg 3.
 

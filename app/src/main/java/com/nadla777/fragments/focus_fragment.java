@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 
 import com.nadla777.R;
@@ -27,6 +29,8 @@ public class focus_fragment extends Fragment {
     private long timerMilliseconds = 0;
     private CountDownTimer countDownTimer;
 
+    private Button focus_start, focus_stop, focus_pause, focus_resume;
+
     private float prevY;
     private boolean scrolling = false;
 
@@ -37,10 +41,10 @@ public class focus_fragment extends Fragment {
 
         ImageButton focus_up = rootView.findViewById(R.id.focus_up);
         ImageButton focus_down = rootView.findViewById(R.id.focus_down);
-        Button focus_start = rootView.findViewById(R.id.start_focus);
-        Button focus_stop = rootView.findViewById(R.id.stop_focus);
-        Button focus_pause = rootView.findViewById(R.id.pause_focus);
-        Button focus_resume = rootView.findViewById(R.id.resume_focus);
+        focus_start = rootView.findViewById(R.id.start_focus);
+        focus_stop = rootView.findViewById(R.id.stop_focus);
+        focus_pause = rootView.findViewById(R.id.pause_focus);
+        focus_resume = rootView.findViewById(R.id.resume_focus);
 
         View.OnClickListener buttonHandler = view -> {
             int id = view.getId();
@@ -99,6 +103,13 @@ public class focus_fragment extends Fragment {
             @Override
             public void onFinish() {
                 Log.d("TIMER", "FINISHED!");
+                Toast.makeText(getContext(), "Focus finished!", Toast.LENGTH_SHORT).show();
+                focus_start.setVisibility(View.VISIBLE);
+                focus_pause.setVisibility(View.GONE);
+                focus_stop.setVisibility(View.GONE);
+                focus_resume.setVisibility(View.GONE);
+                countDownTimer.cancel();
+                timerTextView.setText("00:00:00");
             }
         };
         countDownTimer.start();

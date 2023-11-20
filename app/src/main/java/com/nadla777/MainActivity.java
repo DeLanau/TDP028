@@ -15,10 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.nadla777.fragments.focus_fragment;
+import com.nadla777.managers.UserManager;
 
 import org.json.JSONException;
 
@@ -32,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
+    private StatsView stats;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +41,15 @@ public class MainActivity extends AppCompatActivity {
         welcome_text = findViewById(R.id.welcome);
         name = findViewById(R.id.name);
 
+        stats = findViewById(R.id.stats);
+
         ImageButton login = findViewById(R.id.letsgo);
         UserManager u_manager = new UserManager(getBaseContext());
 
-        //u_manager.clear();
+        u_manager.clear();
+
+        StatsView stats = findViewById(R.id.stats);
+        stats.setActivated(true);
 
         if (u_manager.get_user_data() == null) {
             username.setVisibility(View.VISIBLE);
@@ -88,8 +93,11 @@ public class MainActivity extends AppCompatActivity {
         String welcome_msg = getString(R.string.welcome, username);
         welcome_text.setText(welcome_msg);
         welcome_text.setVisibility(View.VISIBLE);
+        stats.setVisibility(View.VISIBLE);
         focus_fragment fragment = new focus_fragment();
         FragmentManager manager = getSupportFragmentManager();
+
+
 
         manager.beginTransaction().add(R.id.fragment_container, fragment, "test")
                 .addToBackStack(null)

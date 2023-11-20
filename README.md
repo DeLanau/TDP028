@@ -5,11 +5,12 @@
 - [Konkurrensanalys](#Konkurrensanalys)
 ## Info ##
 
-<figure class="video_container">
-  <video controls="true" allowfullscreen="true" poster="path/to/poster_image.png">
-    <source src="/docs/tdp028_app_demo.mp4" type="video/mp4">
-  </video>
-</figure>
+![App demo](/docs/tdp028_app_demo.mp4)
+
+<video width="320" height="240" controls>
+  <source src="docs/tdp028_app_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 Betygsambition: betyg 3.
 

@@ -3,6 +3,7 @@ package com.nadla777.fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,15 +13,23 @@ import com.nadla777.R;
 
 public class settings_fragment extends Fragment {
 
-        View view;
+        public settings_fragment() {}
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
 
-            view = inflater.inflate(R.layout.focus_fragment, container, false);
-            Log.d("fragmentTest", "fragment start");
+            View view = inflater.inflate(R.layout.settings_fragment, container, false);
+
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return true;
+                }
+            });
 
             return view;
         }
+
+
 
 }

@@ -4,6 +4,7 @@
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
 - [App demo](/docs/tdp028_app_demo.mp4)
+- [Teknisk PM](/docs/pm.org)
 ## Info ##
 
 Betygsambition: betyg 3.

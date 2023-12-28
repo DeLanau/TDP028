@@ -1,0 +1,85 @@
+TDP028 Teknisk PM - Renare kod
+
+ 
+
+Ren kod spelar en kritisk roll för att skapa en lättförståelig och
+underhållbar kodbas. Detta innebär att betoning kommer liga på
+meningsfulla namngivningspraxis och en modulär struktur för att
+underlätta framtida ändringar och förbättringar.
+
+ 
+
+I början av projektet var koden minimalistisk och välskriven. Men med
+projektets tillväxt ökade mängden kodduplicering och onödigheter inom
+koden. Jag började reflektera över mina arbetsmetoder och tänka på
+Teknisk PM. Målet var att skapa en välorganiserad och optimerad
+kodstruktur. I mitt sökande efter olika metoder för att uppnå målet,
+stötte jag på flera designmönster och praxis.
+
+ 
+
+En avgörande aspekt av “clean” kod är användningen av beskrivande och
+konsistenta namngivningskonventioner. Namn på variabler, funktioner
+och klasser bör tydligt och konsekvent spegla deras syfte och funktion
+i koden. Istället för generiska namn såsom "x" eller "y" är det mer
+fördelaktigt att använda sig av beskrivande namn såsom "index" eller
+"length". Funktioner och metoder bör följa liknande konventioner genom
+namn som tydligt förklarar deras åtgärd, exempelvis "create_new_user"
+eller "update_time". Genom att använda relevanta och förklarande namn
+i koden blir det möjligt att eliminera behovet av långa kommentarer
+och därigenom göra koden mer självdokumenterande. Det är dock inte
+alltid enkelt att upptäcka sina egna fel eller potentiella brister i
+koden. Därför är det viktigt att regelbundet göra översyner av
+kod. Genom att granska kod kan man upptäcka möjliga fel eller
+inkonsekvenser i "clean" kod och rätta till dem med
+refaktorisering. Dessutom är det enklare att refaktorisera små mängder
+av kod åt gången än att bearbeta hela projekt. [1]
+
+ 
+
+Konsekvent kodstil och ren kod är inte den enda nyckeln till “ren
+kod”. Efter att ha etablerat välskrivna klasser är det väsentligt att
+överväga helheten av projektet. Det inkluderar hur olika klasser
+samverkar med varandra och projektets flexibilitet för att underlätta
+smidiga ändringar oavsett storlek. Därefter är det viktigt att välja
+rätt designmönster för projekt. Det finns tre välkända designmönster
+som vanligtvis används inom mjukvaruutveckling: skapelsemönster,
+strukturmönster och beteendemönster. Varje mönster finns för särskilda
+användningsområden. Felaktigt val av designmönstret kan orsaka större
+skada än nyttja. Beteendemönster passar bäst för mig eftersom den
+möjliggör uppdelning av klasser baserat på deras beteende och
+återanvändning av gemensamma kodavsnitt. [2] Genom att implementera
+beteendemönster kan jag strukturera klasser enligt deras specifika
+beteende och ansvarsområde. Detta ännu mer underlättar skapande av en
+modulär projekt.
+
+ 
+
+När koden har snyggt, konsekvent stil och är grupperad enligt
+beteende. Nästa steg är att implementera en modular
+kodstruktur. Modular kodstryktur har sina egna mönster. En av de
+mönster som väl samspelar med beteendemönstret är användningen av en
+API-mall. Som i sin tur ger möjligheten att ännu mer isolera olika
+delar av funktionaliteten och deras ansvarområde till moduler. Dessa
+distinkta moduler kommer innehålla specifik funktionalitet som kan
+återanvändas av en mängd andra klasser. Ett bra exempel är UserManager
+som har ansvar över specifik funktionalitet för effektiv hantering av
+data som är relaterad till användare. Genom att separera denna
+funktionalitet till en egen modul kan den enkelt integreras,
+uppdateras och återanvändas på ett effektivt sätt i hela
+projektet. [3]
+
+Referenslista:
+
+[1] Reflectoring.io. (2023, juli 2). “The Art of Writing Clean Code: A
+Key to Maintainable Software”. Länk:
+https://reflectoring.io/clean-code/
+
+[2] Stackify. (2023, augisti 1). “Introduction to Design Patterns in
+Software Development”. Länk:
+https://stackify.com/introduction-to-design-patterns-in-software-development/
+
+[3] Android Developers. (2023, augusti 17). “Common Modularization
+Patterns”.
+
+Länk: https://developer.android.com/topic/modularization/patterns

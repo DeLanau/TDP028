@@ -13,13 +13,15 @@ Krav är inte slutliga och kan/kommer utåkas.
 
 Tekniska krav:
 
-- Hantering av stora och små skärmar med olika layouter.
 - Bra avvägning mellan användning av Acitivy och Fragments.
+- Modulär kod (User/Time Manager).
+- Hantering av bakåtknapp. 
+- Användning av egenskriven View (StatsView).
 
 Enterprenöriella krav:
 
-- Darkmode UX inställning
-- Multispråk-stöd
+- Darkmode UX inställning.
+- Multispråk-stöd (Svenska/Engelska).
 
 ## Veckoplanering  ##
 

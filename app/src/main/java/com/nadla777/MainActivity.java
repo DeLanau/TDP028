@@ -1,6 +1,7 @@
 package com.nadla777;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,16 +25,16 @@ import com.nadla777.managers.FocusTimeManager;
 import com.nadla777.managers.UserManager;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText username;
-    private TextView welcome_text, name;
+    private TextView welcome_text, name, points;
 
     private static final int RC_SIGN_IN = 77;
     private static boolean first_time = false;
 
-    private Button settings;
     private Handler handler = new Handler(Looper.getMainLooper());
     //private FocusTimeManager t_manager;
     private StatsView stats;
@@ -46,14 +48,16 @@ public class MainActivity extends AppCompatActivity {
         welcome_text = findViewById(R.id.welcome);
         name = findViewById(R.id.name);
 
-        stats = findViewById(R.id.stats);
+        points = findViewById(R.id.points);
 
-        settings = findViewById(R.id.settings);
+        stats = findViewById(R.id.stats);
 
         Button login = findViewById(R.id.letsgo);
         UserManager u_manager = new UserManager(getBaseContext());
         //FocusTimeManager t_manager = new FocusTimeManager(R.layout.activity_main, R.layout.activity_main);
-        u_manager.clear();
+        //u_manager.clear();
+
+        points.setText(String.valueOf(u_manager.get_points()));
 
         StatsView stats = findViewById(R.id.stats);
         stats.setActivated(true);
@@ -94,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     private void show_welcome(String username) {
         String welcome_msg = getString(R.string.welcome, username);
         welcome_text.setText(welcome_msg);
@@ -113,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
                 name.setText(username);
                 name.setVisibility(View.VISIBLE);
+                points.setVisibility(View.VISIBLE);
+
                 Log.d("DEBUG_MAIN_ACTIVITY", "show username after welcome animation");
             }
         }, 5000);
@@ -121,8 +132,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment current = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentManager manager = getSupportFragmentManager();
         if(current instanceof focus_fragment){
             ((focus_fragment) current).onBackPressed();
+        }else if(current instanceof settings_fragment) {
+            manager.popBackStack();
         }else {
             moveTaskToBack(true);
         }

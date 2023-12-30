@@ -141,6 +141,8 @@ public class focus_fragment extends Fragment {
                 focus_resume.setVisibility(View.GONE);
 
                 u_manager.add_value(time_holder);
+                TextView points = getActivity().findViewById(R.id.points);
+                points.setText(String.valueOf(u_manager.get_points()));
                 update_stats.invalidate();
                 Log.d("TIMER", u_manager.get_user_data().toString());
 
@@ -189,5 +191,4 @@ public class focus_fragment extends Fragment {
                 .addToBackStack(null)
                 .commit();
     }
-
 }

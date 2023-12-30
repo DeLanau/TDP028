@@ -80,6 +80,14 @@ public class UserManager {
         return null;
     }
 
+    public int get_points() {
+        JSONObject jsonObject = get_user_data();
+        if (jsonObject == null)
+            return 0;
+
+        return jsonObject.optInt("points", 0);
+    }
+
     public void add_value(long value) {
         JSONObject jsonObject = get_user_data();
         if(jsonObject != null) {
@@ -95,9 +103,7 @@ public class UserManager {
                 jsonObject.put("total_time", total_time + value);
 
                 int min = (int) (value / (1000 * 60));
-                Log.d("USER_MANAGER", String.valueOf(min));
                 int points = jsonObject.optInt("points", 0);
-                Log.d("USER_MANAGER", String.valueOf(points + (min + (min / 3))));
                 jsonObject.put("points", points + (min + (min / 3)));
 
                 save_user(jsonObject);

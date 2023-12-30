@@ -33,7 +33,7 @@ public class StatsView extends View {
 
         line = new Paint();
         line.setColor(Color.BLACK);
-        line.setStrokeWidth(5f);
+        line.setStrokeWidth(10f);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class StatsView extends View {
 
         Paint textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(30);
+        textPaint.setTextSize(70);
 
         for (int i = 0; i < values.size(); i++) {
             int valueInMillis = values.get(i);

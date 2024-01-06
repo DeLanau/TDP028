@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="theme.Focus" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#834cab</item>
+        <item name="background">@color/white</item>
+    </style>
+</resources>

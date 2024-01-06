@@ -16,6 +16,7 @@ import java.util.List;
 public class StatsView extends View {
 
     private Paint line;
+    //own margins for xml
     private int marginTop = 0, marginBottom = 0;
     private List<Integer> values; //= Arrays.asList(20, 50, 70, 35, 15, 25, 55, 75);
 
@@ -86,6 +87,7 @@ public class StatsView extends View {
         return max;
     }
 
+    //functions for xml
     public void setValues(List<Integer> values) {
         this.values = values;
         invalidate();

@@ -1,9 +1,14 @@
 package com.nadla777.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,7 +20,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import com.nadla777.R;
@@ -23,14 +27,16 @@ import com.nadla777.StatsView;
 import com.nadla777.managers.FocusTimeManager;
 import com.nadla777.managers.UserManager;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class focus_fragment extends Fragment {
 
-    private TextView timerTextView;
+    private TextView timerTextView, points;
     private long timerMilliseconds = 0;
     private CountDownTimer countDownTimer;
 
@@ -64,6 +70,8 @@ public class focus_fragment extends Fragment {
         focus_stop = rootView.findViewById(R.id.stop_focus);
         focus_pause = rootView.findViewById(R.id.pause_focus);
         focus_resume = rootView.findViewById(R.id.resume_focus);
+
+        points = getActivity().findViewById(R.id.points);
 
         settings = getActivity().findViewById(R.id.settings);
         settings.setVisibility(View.VISIBLE);
@@ -106,6 +114,8 @@ public class focus_fragment extends Fragment {
             }else if(id == R.id.settings) {
                 handleSettings();
                 Log.d("Button", "Settings");
+            }else if (id == R.id.points && u_manager.get_points() >= 60) {
+                hanldePoints();
             }
         };
 
@@ -116,6 +126,7 @@ public class focus_fragment extends Fragment {
         focus_pause.setOnClickListener(buttonHandler);
         focus_resume.setOnClickListener(buttonHandler);
         settings.setOnClickListener(buttonHandler);
+        points.setOnClickListener(buttonHandler);
 
         setupScrollBehavior(rootView);
         return rootView;
@@ -144,7 +155,6 @@ public class focus_fragment extends Fragment {
                 TextView points = getActivity().findViewById(R.id.points);
                 points.setText(String.valueOf(u_manager.get_points()));
                 update_stats.invalidate();
-                Log.d("TIMER", u_manager.get_user_data().toString());
 
                 countDownTimer.cancel();
                 timerTextView.setText("00:00:00");
@@ -190,5 +200,49 @@ public class focus_fragment extends Fragment {
         getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment, "test")
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private AlertDialog pointsDialog;
+    private List<Integer> strings_resources = new ArrayList<>();
+    private void hanldePoints(){
+
+        if (pointsDialog != null && pointsDialog.isShowing()) {
+            // Dialog is already showing, do not create a new one
+            return;
+        }
+
+        strings_resources.add(R.string.string1);
+        strings_resources.add(R.string.string2);
+        strings_resources.add(R.string.string3);
+        Collections.shuffle(strings_resources);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // 'this' refers to your Activity or Fragment context
+
+        builder.setTitle(R.string.challange);
+
+        int randomChallange = new Random().nextInt(strings_resources.size());
+        int randomTime = (int) (Math.random() * ((60 - 15) / 5 + 1)) * 5 + 15;
+
+        String text = getString(strings_resources.get(randomChallange), randomTime);
+
+        builder.setMessage(text);
+
+        builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                u_manager.set_points(-60);
+                points.setText(u_manager.get_points());
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        pointsDialog = builder.create();
+        pointsDialog.show();
     }
 }

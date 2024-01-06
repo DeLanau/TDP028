@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TDP028 Project</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="username">Användarnamn</string>
+    <string name="welcome">Välkommen, %1$s!</string>
+    <string name="focus">Fokus</string>
+    <string name="start_focus">Starta</string>
+    <string name="stop_focus">Stoppa</string>
+    <string name="pause_focus">Pausa</string>
+    <string name="resume_focus">Återuppta</string>
+    <string name="settings">Inställningar</string>
+    <string name="change_theme">Tema Ljust/Mörkt</string>
+    <string name="challange">Utmaning!</string>
+    <string name="accept">Acceptera</string>
+    <string name="decline">Avvisa</string>
+    <string name="string1">Träna i %1$d minutes</string>
+    <string name="string2">Meditera i %1$d minutes</string>
+    <string name="string3">Promenera i %1$d minutes</string>
+</resources>

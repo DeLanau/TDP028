@@ -21,12 +21,14 @@ import java.util.List;
 public class UserManager {
 
     private Context context;
+    //local storage
     private static final String user_file = "local_user.json";
     private static final int list_size = 10;
     public UserManager(Context context) {
         this.context = context;
     }
 
+    //create new user as jsonObject and save to local storage
     public void create_new_user(String username) {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -40,6 +42,7 @@ public class UserManager {
         save_user(jsonObject);
     }
 
+    //get all data
     public JSONObject get_user_data() {
         try {
             FileInputStream inputStream = context.openFileInput(user_file);
@@ -60,6 +63,7 @@ public class UserManager {
         return null;
     }
 
+    //get list with last user focus sessions, max 10 values
     public List<Integer> get_list() {
         JSONObject jsonObject = get_user_data();
         if (jsonObject != null) {
@@ -80,6 +84,7 @@ public class UserManager {
         return null;
     }
 
+    //get points for shop
     public int get_points() {
         JSONObject jsonObject = get_user_data();
         if (jsonObject == null)
@@ -88,6 +93,25 @@ public class UserManager {
         return jsonObject.optInt("points", 0);
     }
 
+    //used only for updating after purchase
+    public void set_points(int value) {
+        JSONObject jsonObject = get_user_data();
+        if(jsonObject != null){
+           try {
+               int current_points = get_points();
+               int new_points = current_points + value;
+               if( new_points < 0)  {
+                   new_points = 0;
+               }
+               jsonObject.put("points", new_points);
+               save_user(jsonObject);
+           } catch (JSONException e) {
+               throw new RuntimeException(e);
+           }
+        }
+    }
+
+    //add time after focus session, add total time and calculate points
     public void add_value(long value) {
         JSONObject jsonObject = get_user_data();
         if(jsonObject != null) {
@@ -126,6 +150,7 @@ public class UserManager {
         }
     }
 
+    //delete local storred data
     public void clear() {
         File dir = context.getFilesDir();
         File[] files = dir.listFiles();

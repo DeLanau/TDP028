@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         UserManager u_manager = new UserManager(getBaseContext());
         //FocusTimeManager t_manager = new FocusTimeManager(R.layout.activity_main, R.layout.activity_main);
         //u_manager.clear();
-
+        //u_manager.set_points(60);
         points.setText(String.valueOf(u_manager.get_points()));
 
         StatsView stats = findViewById(R.id.stats);

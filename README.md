@@ -4,7 +4,17 @@
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
 - [App demo](/docs/tdp028_app_demo.mp4)
+- [Kodgenomgång](/dics/tdp028_kodgenomgang.mp4)
+- [Om screencast funkar ej](#Links)
 - [Teknisk PM](/docs/pm.org)
+
+## Links ##
+Ifall webläsare funkar ej, har finns länk till outlook:
+
+- [Länk till app demo](https://liuonline-my.sharepoint.com/:v:/r/personal/nadla777_student_liu_se/Documents/tdp028_app_demo.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=d6zbre)
+
+- [Länk till kodgenomgång](https://liuonline-my.sharepoint.com/:v:/r/personal/nadla777_student_liu_se/Documents/tdp028_kodgenomgang.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=6Jb5qe)
+
 ## Info ##
 
 Betygsambition: betyg 3.

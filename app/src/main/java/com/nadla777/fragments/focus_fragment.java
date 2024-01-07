@@ -231,7 +231,7 @@ public class focus_fragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 u_manager.set_points(-60);
-                points.setText(u_manager.get_points());
+                points.setText(String.valueOf(u_manager.get_points()));
                 dialog.dismiss();
             }
         });

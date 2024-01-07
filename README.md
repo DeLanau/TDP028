@@ -4,7 +4,7 @@
 - [Appbeskrivning](#Appbeskrivning)
 - [Konkurrensanalys](#Konkurrensanalys)
 - [App demo](/docs/tdp028_app_demo.mp4)
-- [Kodgenomgång](/dics/tdp028_kodgenomgang.mp4)
+- [Kodgenomgång](/docs/tdp028_kodgenomgang.mp4)
 - [Om screencast funkar ej](#Links)
 - [Teknisk PM](/docs/pm.org)
 
